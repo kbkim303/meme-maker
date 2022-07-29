@@ -9,12 +9,14 @@ const lineWidth = document.getElementById("line-width");
 const lineColor = document.getElementById("line-color");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
+const textInput = document.getElementById("text");
 
 const CANVAS_WIDTH = 800;
 const CANVAS_HEIGHT = 800;
 
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
+ctx.lineWidth = lineWidth.value;
 
 let isFilling = false;
 let isPainting = false;
@@ -94,6 +96,15 @@ function onFileChange(event) {
   };
 }
 
+function onDoubleClick(event) {
+  ctx.save();
+  ctx.lineWidth = 1;
+  const text = textInput.value;
+  ctx.strokeText(text, event.offsetX, event.offsetY);
+  ctx.restore();
+}
+
+canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove", onMove);
 canvas.addEventListener("mousedown", onMouseDown);
 canvas.addEventListener("mouseup", onMouseUp);
