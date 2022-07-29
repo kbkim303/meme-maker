@@ -2,6 +2,7 @@ const colorOptions = Array.from(
   document.getElementsByClassName("color-option")
 );
 const fileInput = document.getElementById("file");
+const saveBtn = document.getElementById("save-btn");
 const modeBtn = document.getElementById("mode-btn");
 const eraserAllBtn = document.getElementById("eraser-all-btn");
 const eraserModeBtn = document.getElementById("eraser-btn");
@@ -17,6 +18,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round";
 
 let isFilling = false;
 let isPainting = false;
@@ -97,11 +99,23 @@ function onFileChange(event) {
 }
 
 function onDoubleClick(event) {
-  ctx.save();
-  ctx.lineWidth = 1;
   const text = textInput.value;
-  ctx.strokeText(text, event.offsetX, event.offsetY);
-  ctx.restore();
+  if (text !== "") {
+    ctx.save();
+    ctx.lineWidth = 1;
+
+    ctx.font = "45px serif";
+    ctx.fillText(text, event.offsetX, event.offsetY);
+    ctx.restore();
+  }
+}
+
+function onSaveClick(event) {
+  const url = canvas.toDataURL(); // base64 인코드
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
 }
 
 canvas.addEventListener("dblclick", onDoubleClick);
@@ -115,6 +129,7 @@ lineColor.addEventListener("change", onLineColorChange);
 colorOptions.forEach((color) =>
   color.addEventListener("click", onLineColorClick)
 );
+saveBtn.addEventListener("click", onSaveClick);
 modeBtn.addEventListener("click", onModeClick);
 eraserAllBtn.addEventListener("click", onEraserAllClick);
 eraserModeBtn.addEventListener("click", onEraserClick);
