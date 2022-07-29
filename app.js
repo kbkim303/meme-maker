@@ -90,6 +90,7 @@ function onFileChange(event) {
   image.src = url;
   image.onload = function () {
     ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    fileInput.value = null; // 새로운 이미지를 받기위한 비우기
   };
 }
 
