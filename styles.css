@@ -15,3 +15,7 @@ canvas {
   height: 50px;
   cursor: pointer;
 }
+
+#grid {
+  display: grid;
+}
