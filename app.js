@@ -103,7 +103,6 @@ function onDoubleClick(event) {
   if (text !== "") {
     ctx.save();
     ctx.lineWidth = 1;
-
     ctx.font = "45px serif";
     ctx.fillText(text, event.offsetX, event.offsetY);
     ctx.restore();
